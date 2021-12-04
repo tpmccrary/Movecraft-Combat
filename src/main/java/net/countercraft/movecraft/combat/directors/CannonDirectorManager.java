@@ -137,7 +137,7 @@ public class CannonDirectorManager extends DirectorManager {
 
             ArrayList<TNTPrimed> allTNT = new ArrayList<>(w.getEntitiesByClass(TNTPrimed.class));
             for (TNTPrimed tnt : allTNT) {
-                if (!(tnt.getVelocity().lengthSquared() > 0.35) || tracking.containsKey(tnt)) {
+                if ((tnt.getVelocity().lengthSquared() <= 0.35) || tracking.containsKey(tnt)) {
                     continue;
                 }
                 tracking.put(tnt, tnt.getVelocity().lengthSquared());

@@ -13,6 +13,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 
 public class DirectorUtils {
+
+    private DirectorUtils() {
+    }
+
     @Nullable
     public static Block getDirectorBlock(@NotNull Player player) {
         Iterator<Block> itr = new BlockIterator(player, Math.min(Config.CannonDirectorRange, distanceToRender(player.getLocation())));

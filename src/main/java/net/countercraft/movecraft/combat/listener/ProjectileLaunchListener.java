@@ -26,7 +26,7 @@ public class ProjectileLaunchListener implements Listener {
             return;
 
         Craft craft = CraftManager.getInstance().fastNearestCraftToLoc(fireball.getLocation());
-        if(craft == null || !(craft instanceof PlayerCraft))
+        if(!(craft instanceof PlayerCraft))
             return;
         if(!MathUtils.locIsNearCraftFast(craft, MathUtils.bukkit2MovecraftLoc(fireball.getLocation())))
             return;

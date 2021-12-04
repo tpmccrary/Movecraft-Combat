@@ -17,7 +17,7 @@ import java.util.logging.Level;
 
 public class PlayerConfig extends YamlConfiguration {
     private File configFile = null;
-    private UUID owner = null;
+    
     private String setting = "HIGH";
     private String mode = "BLOCKS";
 
@@ -26,7 +26,6 @@ public class PlayerConfig extends YamlConfiguration {
     public PlayerConfig(UUID owner) {
         super();
         configFile = new File(MovecraftCombat.getInstance().getDataFolder().getAbsolutePath() + "/userdata/" + owner + ".yml");
-        this.owner = owner;
     }
 
     public void setSetting(String setting) {

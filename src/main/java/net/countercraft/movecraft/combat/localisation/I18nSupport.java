@@ -9,6 +9,9 @@ import java.util.logging.Level;
 public class I18nSupport {
     private static Properties langFile;
 
+    private I18nSupport() {
+    }
+
     public static void init() {
         langFile = new Properties();
 
