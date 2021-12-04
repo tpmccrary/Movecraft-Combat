@@ -1,6 +1,6 @@
 package net.countercraft.movecraft.combat.listener;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.tracking.FireballTracking;
 import net.countercraft.movecraft.craft.CraftManager;
 import net.countercraft.movecraft.craft.PlayerCraft;
@@ -15,7 +15,7 @@ import net.countercraft.movecraft.util.MathUtils;
 public class ProjectileHitListener implements Listener {
     @EventHandler
     public void projectileHitEvent(ProjectileHitEvent e) {
-        if(!Config.EnableFireballTracking)
+        if(!ConfigUtil.EnableFireballTracking)
             return;
         if(e.getEntity() == null)
             return;

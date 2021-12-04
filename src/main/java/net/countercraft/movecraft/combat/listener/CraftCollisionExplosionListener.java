@@ -1,7 +1,7 @@
 package net.countercraft.movecraft.combat.listener;
 
 import net.countercraft.movecraft.Movecraft;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.status.StatusManager;
 import net.countercraft.movecraft.combat.tracking.damagetype.TorpedoDamage;
 import net.countercraft.movecraft.craft.CraftManager;
@@ -22,7 +22,7 @@ import java.util.Set;
 public class CraftCollisionExplosionListener implements Listener {
     @EventHandler
     public void collisionExplosionListener(CraftCollisionExplosionEvent e) {
-        if(!Config.EnableTorpedoTracking)
+        if(!ConfigUtil.EnableTorpedoTracking)
             return;
         if(e.getCraft().getNotificationPlayer() == null)
             return;

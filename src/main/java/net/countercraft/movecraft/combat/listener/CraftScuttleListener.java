@@ -1,6 +1,6 @@
 package net.countercraft.movecraft.combat.listener;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.radar.RadarManager;
 import net.countercraft.movecraft.combat.status.StatusManager;
 import net.countercraft.movecraft.craft.type.CraftType;
@@ -20,7 +20,7 @@ public class CraftScuttleListener implements Listener {
     }
 
     private void handleCombatScuttle(CraftScuttleEvent e) {
-        if(!Config.EnableCombatReleaseTracking)
+        if(!ConfigUtil.EnableCombatReleaseTracking)
             return;
 
         if(e.getCraft().getNotificationPlayer() != e.getCause())

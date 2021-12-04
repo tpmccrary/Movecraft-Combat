@@ -1,7 +1,7 @@
 package net.countercraft.movecraft.combat.localisation;
 
 import net.countercraft.movecraft.combat.MovecraftCombat;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import java.io.*;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -23,7 +23,7 @@ public class I18nSupport {
         InputStream stream = null;
 
         try {
-            stream = new FileInputStream(langDirectory.getAbsolutePath()+"/mcclang_" + Config.Locale + ".properties");
+            stream = new FileInputStream(langDirectory.getAbsolutePath()+"/mcclang_" + ConfigUtil.Locale + ".properties");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

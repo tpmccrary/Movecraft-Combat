@@ -1,6 +1,6 @@
 package net.countercraft.movecraft.combat.listener;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.fireballs.FireballManager;
 import net.countercraft.movecraft.combat.status.StatusManager;
 import net.countercraft.movecraft.combat.tracking.FireballTracking;
@@ -22,7 +22,7 @@ public class ProjectileLaunchListener implements Listener {
         SmallFireball fireball = (SmallFireball) e.getEntity();
         FireballManager.getInstance().addFireball(fireball);
 
-        if(!Config.EnableFireballTracking)
+        if(!ConfigUtil.EnableFireballTracking)
             return;
 
         Craft craft = CraftManager.getInstance().fastNearestCraftToLoc(fireball.getLocation());

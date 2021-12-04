@@ -1,6 +1,6 @@
 package net.countercraft.movecraft.combat.radar;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -32,7 +32,7 @@ public class RadarManager extends BukkitRunnable {
 
 
     public void startInvisible(Player p) {
-        if(!Config.EnableAntiRadar || isInvisible(p)) {
+        if(!ConfigUtil.EnableAntiRadar || isInvisible(p)) {
             return;
         }
 
@@ -45,7 +45,7 @@ public class RadarManager extends BukkitRunnable {
     }
 
     public void endInvisible(Player p) {
-        if(!Config.EnableAntiRadar || !isInvisible(p)) {
+        if(!ConfigUtil.EnableAntiRadar || !isInvisible(p)) {
             return;
         }
 
@@ -58,14 +58,14 @@ public class RadarManager extends BukkitRunnable {
     }
 
     private boolean isInvisible(Player p) {
-        if(!Config.EnableAntiRadar) {
+        if(!ConfigUtil.EnableAntiRadar) {
             return false;
         }
         return invisibles.contains(p);
     }
 
     public void startPilot(Player p) {
-        if(!Config.EnableAntiRadar || isPilot(p)) {
+        if(!ConfigUtil.EnableAntiRadar || isPilot(p)) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class RadarManager extends BukkitRunnable {
     }
 
     public void endPilot(Player p) {
-        if(!Config.EnableAntiRadar || !isPilot(p)) {
+        if(!ConfigUtil.EnableAntiRadar || !isPilot(p)) {
             return;
         }
 
@@ -91,7 +91,7 @@ public class RadarManager extends BukkitRunnable {
     }
 
     public boolean isPilot(Player p) {
-        if(!Config.EnableAntiRadar) {
+        if(!ConfigUtil.EnableAntiRadar) {
             return false;
         }
         return pilots.contains(p);

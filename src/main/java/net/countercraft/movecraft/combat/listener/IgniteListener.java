@@ -1,7 +1,7 @@
 package net.countercraft.movecraft.combat.listener;
 
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.craft.CraftManager;
 import net.countercraft.movecraft.util.MathUtils;
@@ -24,11 +24,11 @@ public class IgniteListener implements Listener {
             return;
 
         // replace blocks with fire occasionally, to prevent fast craft from simply ignoring fire
-        if (Config.EnableFireballPenetration && event.getCause() == BlockIgniteEvent.IgniteCause.FIREBALL)
+        if (ConfigUtil.EnableFireballPenetration && event.getCause() == BlockIgniteEvent.IgniteCause.FIREBALL)
             doFireballPenetration(event);
 
         // add surface fires to a craft's hitbox to prevent obstruction by fire
-        if (Config.AddFiresToHitbox)
+        if (ConfigUtil.AddFiresToHitbox)
             doAddFiresToHitbox(event);
     }
 

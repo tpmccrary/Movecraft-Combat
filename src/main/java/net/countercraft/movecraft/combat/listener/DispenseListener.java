@@ -1,7 +1,7 @@
 package net.countercraft.movecraft.combat.listener;
 
 import net.countercraft.movecraft.combat.MovecraftCombat;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.status.StatusManager;
 import net.countercraft.movecraft.craft.CraftManager;
 import net.countercraft.movecraft.craft.PlayerCraft;
@@ -31,7 +31,7 @@ public class DispenseListener implements Listener {
     public void dispenseEvent(BlockDispenseEvent e) {
         if(e.isCancelled())
             return;
-        if(!Config.EnableTNTTracking)
+        if(!ConfigUtil.EnableTNTTracking)
             return;
         if(e.getBlock().getType() != Material.DISPENSER)
             return;
@@ -56,7 +56,7 @@ public class DispenseListener implements Listener {
         Vector velocity = getTNTVector();
         tnt.setVelocity(velocity);
 
-        if(Config.Debug)
+        if(ConfigUtil.Debug)
             MovecraftCombat.getInstance().getLogger().info("Spawned custom TNT!: " + l + ", " + velocity);
 
         for(Player p : Bukkit.getServer().getOnlinePlayers()) {

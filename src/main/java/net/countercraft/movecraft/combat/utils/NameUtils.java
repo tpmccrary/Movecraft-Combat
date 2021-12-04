@@ -10,7 +10,9 @@ public class NameUtils {
     public static String offlineToName(@NotNull OfflinePlayer offlinePlayer) {
         Player p = Bukkit.getPlayer(offlinePlayer.getUniqueId());
         if(p != null)
+        {
             return p.getDisplayName() + ChatColor.RESET;
+        }
 
         return offlinePlayer.getName();
     }

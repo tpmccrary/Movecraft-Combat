@@ -3,7 +3,7 @@ package net.countercraft.movecraft.combat.tracking;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.event.CraftDamagedByEvent;
 import net.countercraft.movecraft.combat.event.CraftReleasedByEvent;
 import net.countercraft.movecraft.combat.event.CraftSunkByEvent;
@@ -36,7 +36,7 @@ public class DamageManager extends BukkitRunnable {
 
 
     public void addDamageRecord(@NotNull PlayerCraft craft, @NotNull Player cause, @NotNull DamageType type) {
-        if(Config.Debug) {
+        if(ConfigUtil.Debug) {
             craft.getPlayer();
             Bukkit.broadcast(craft.getPlayer().getDisplayName() + "'s craft was damaged by a " + type + " by " + cause.getDisplayName(), "movecraft.combat.debug");
         }

@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.craft.CraftManager;
 import net.countercraft.movecraft.util.MathUtils;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import org.jetbrains.annotations.Nullable;
 
 import static net.countercraft.movecraft.util.ChatUtils.ERROR_PREFIX;

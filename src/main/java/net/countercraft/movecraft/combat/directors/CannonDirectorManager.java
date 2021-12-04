@@ -20,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.countercraft.movecraft.MovecraftLocation;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.combat.MovecraftCombat;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 
 
 public class CannonDirectorManager extends DirectorManager {
@@ -59,10 +59,10 @@ public class CannonDirectorManager extends DirectorManager {
     }
 
     private void processTracers() {
-        if (Config.TracerRateTicks == 0)
+        if (ConfigUtil.TracerRateTicks == 0)
             return;
         long ticksElapsed = (System.currentTimeMillis() - lastUpdate) / 50;
-        if (ticksElapsed < Config.TracerRateTicks)
+        if (ticksElapsed < ConfigUtil.TracerRateTicks)
             return;
 
         long maxDistSquared = Bukkit.getServer().getViewDistance() * 16L;
@@ -119,7 +119,7 @@ public class CannonDirectorManager extends DirectorManager {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                fp.spawnParticle(Config.TracerParticle, loc, 0, 0.0, 0.0, 0.0);
+                                fp.spawnParticle(ConfigUtil.TracerParticle, loc, 0, 0.0, 0.0, 0.0);
                             }
                         }.runTaskLater(MovecraftCombat.getInstance(), 5);
                     }
@@ -137,7 +137,7 @@ public class CannonDirectorManager extends DirectorManager {
 
             ArrayList<TNTPrimed> allTNT = new ArrayList<>(w.getEntitiesByClass(TNTPrimed.class));
             for (TNTPrimed tnt : allTNT) {
-                if ((tnt.getVelocity().lengthSquared() <= 0.35) || tracking.containsKey(tnt)) {
+                if (tnt.getVelocity().lengthSquared() <= 0.35 || tracking.containsKey(tnt)) {
                     continue;
                 }
                 tracking.put(tnt, tnt.getVelocity().lengthSquared());
@@ -156,11 +156,11 @@ public class CannonDirectorManager extends DirectorManager {
                 int distX = Math.abs(midpoint.getX() - tnt.getLocation().getBlockX());
                 int distY = Math.abs(midpoint.getY() - tnt.getLocation().getBlockY());
                 int distZ = Math.abs(midpoint.getZ() - tnt.getLocation().getBlockZ());
-                if (!hasDirector((PlayerCraft) c) || distX >= Config.CannonDirectorDistance || distY >= Config.CannonDirectorDistance || distZ >= Config.CannonDirectorDistance) {
+                if (!hasDirector((PlayerCraft) c) || distX >= ConfigUtil.CannonDirectorDistance || distY >= ConfigUtil.CannonDirectorDistance || distZ >= ConfigUtil.CannonDirectorDistance) {
                     continue;
                 }
                 Player p = getDirector((PlayerCraft) c);
-                if (p == null || p.getInventory().getItemInMainHand().getType() != Config.DirectorTool) {
+                if (p == null || p.getInventory().getItemInMainHand().getType() != ConfigUtil.DirectorTool) {
                     continue;
                 }
                 Vector tntVector = tnt.getVelocity();
@@ -191,7 +191,7 @@ public class CannonDirectorManager extends DirectorManager {
     }
 
     private Craft getDirectingCraft(TNTPrimed tnt) {
-        if(!Config.EnableTNTTracking)
+        if(!ConfigUtil.EnableTNTTracking)
             return null;
 
         List<MetadataValue> meta = tnt.getMetadata("MCC-Sender");
@@ -209,13 +209,13 @@ public class CannonDirectorManager extends DirectorManager {
     }
 
     private void processTNTContactExplosives() {
-        if(!Config.EnableContactExplosives)
+        if(!ConfigUtil.EnableContactExplosives)
             return;
         // now check to see if any has abruptly changed velocity, and should
         // explode
         for (TNTPrimed tnt : tracking.keySet()) {
             double vel = tnt.getVelocity().lengthSquared();
-            if (vel < tracking.getDouble(tnt) / Config.ContactExplosivesMaxImpulseFactor) {
+            if (vel < tracking.getDouble(tnt) / ConfigUtil.ContactExplosivesMaxImpulseFactor) {
                 tnt.setVelocity(new Vector(0,0,0)); //freeze it in place to prevent sliding
                 tnt.setFuseTicks(0);
             }

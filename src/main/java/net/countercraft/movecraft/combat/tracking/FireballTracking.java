@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Fireball;
 import net.countercraft.movecraft.combat.status.StatusManager;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 
 
 public class FireballTracking {
@@ -28,7 +28,7 @@ public class FireballTracking {
 
 
     public void dispensedFireball(@NotNull PlayerCraft craft, @NotNull Fireball fireball) {
-        if(!Config.EnableFireballTracking)
+        if(!ConfigUtil.EnableFireballTracking)
             return;
         Player sender;
         if(MovecraftCombat.getInstance().getAADirectors().hasDirector(craft)) {
@@ -44,7 +44,7 @@ public class FireballTracking {
     }
 
     public void damagedCraft(@NotNull PlayerCraft craft, @NotNull Fireball fireball) {
-        if(!Config.EnableFireballTracking)
+        if(!ConfigUtil.EnableFireballTracking)
             return;
 
         List<MetadataValue> meta = fireball.getMetadata("MCC-Sender");

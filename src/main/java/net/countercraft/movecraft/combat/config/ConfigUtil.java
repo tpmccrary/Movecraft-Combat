@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 
 
-public class Config {
+public class ConfigUtil {
     public static boolean Debug = false;
 
     // Localisation

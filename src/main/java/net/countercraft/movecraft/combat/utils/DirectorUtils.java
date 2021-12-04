@@ -1,6 +1,6 @@
 package net.countercraft.movecraft.combat.utils;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,16 +19,16 @@ public class DirectorUtils {
 
     @Nullable
     public static Block getDirectorBlock(@NotNull Player player) {
-        Iterator<Block> itr = new BlockIterator(player, Math.min(Config.CannonDirectorRange, distanceToRender(player.getLocation())));
+        Iterator<Block> itr = new BlockIterator(player, Math.min(ConfigUtil.CannonDirectorRange, distanceToRender(player.getLocation())));
         while (itr.hasNext()) {
             Block block = itr.next();
             Material material = block.getType();
-            if (Config.Transparent == null) {
+            if (ConfigUtil.Transparent == null) {
                 if (!material.equals(Material.AIR)) {
                     return block;
                 }
             } else {
-                if (!Config.Transparent.contains(material)) {
+                if (!ConfigUtil.Transparent.contains(material)) {
                     return block;
                 }
             }

@@ -1,6 +1,6 @@
 package net.countercraft.movecraft.combat.listener;
 
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -20,7 +20,7 @@ import java.util.HashSet;
 public class PistonListener implements Listener {
     @EventHandler
     public void onPistonRetract(BlockPistonRetractEvent e) {
-        if(!Config.ReImplementTNTTranslocation)
+        if(!ConfigUtil.ReImplementTNTTranslocation)
             return;
 
         BlockFace dir = e.getDirection();
@@ -32,7 +32,7 @@ public class PistonListener implements Listener {
 
     @EventHandler
     public void onPistonExtend(BlockPistonExtendEvent e) {
-        if(!Config.ReImplementTNTTranslocation)
+        if(!ConfigUtil.ReImplementTNTTranslocation)
             return;
 
         doTranslocation(e.getBlock(), e.getDirection().getOppositeFace(), null);

@@ -13,7 +13,7 @@ import org.bukkit.util.Vector;
 import org.bukkit.entity.Player;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.MovecraftLocation;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 
 import java.util.ArrayList;
 
@@ -56,18 +56,18 @@ public class AADirectorManager extends DirectorManager {
                 int distX = Math.abs(midPoint.getX() - fireball.getLocation().getBlockX());
                 int distY = Math.abs(midPoint.getY() - fireball.getLocation().getBlockY());
                 int distZ = Math.abs(midPoint.getZ() - fireball.getLocation().getBlockZ());
-                if (distX > Config.AADirectorDistance || distY > Config.AADirectorDistance || distZ > Config.AADirectorDistance)
+                if (distX > ConfigUtil.AADirectorDistance || distY > ConfigUtil.AADirectorDistance || distZ > ConfigUtil.AADirectorDistance)
                     continue;
 
                 fireball.setShooter(p);
 
-                if (p == null || p.getInventory().getItemInMainHand().getType() != Config.DirectorTool)
+                if (p == null || p.getInventory().getItemInMainHand().getType() != ConfigUtil.DirectorTool)
                     continue;
 
                 Vector fv = fireball.getVelocity();
                 double speed = fv.length(); // store the speed to add it back in later, since all the values we will be using are "normalized", IE: have a speed of 1
                 fv = fv.normalize(); // you normalize it for comparison with the new direction to see if we are trying to steer too far
-                Block targetBlock = p.getTargetBlock(Config.Transparent, Config.AADirectorRange);
+                Block targetBlock = p.getTargetBlock(ConfigUtil.Transparent, ConfigUtil.AADirectorRange);
                 Vector targetVector;
 
                 if (targetBlock == null) { // the player is looking at nothing, shoot in that general direction

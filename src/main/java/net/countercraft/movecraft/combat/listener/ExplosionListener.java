@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 import net.countercraft.movecraft.combat.MovecraftCombat;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.combat.directors.CannonDirectorManager;
 import net.countercraft.movecraft.combat.tracking.FireballTracking;
 import net.countercraft.movecraft.craft.CraftManager;
@@ -44,7 +44,7 @@ public class ExplosionListener implements Listener {
             return;
         if (e.getEntityType() != EntityType.PRIMED_TNT)
             return;
-        if(Config.DurabilityOverride == null)
+        if(ConfigUtil.DurabilityOverride == null)
             return;
 
         // Sorry for the following monster conditional statement, it is necessary to avoid spalling.
@@ -57,10 +57,10 @@ public class ExplosionListener implements Listener {
                 removeList.add(b);
                 continue;
             }
-            if(Config.DurabilityOverride == null || !Config.DurabilityOverride.containsKey(b.getType())) {
+            if(ConfigUtil.DurabilityOverride == null || !ConfigUtil.DurabilityOverride.containsKey(b.getType())) {
                 continue;
             }
-            if(new Random( b.getX()*b.getY()*b.getZ()+(System.currentTimeMillis() >> 12)).nextInt(100) > Config.DurabilityOverride.get(b.getType())) {
+            if(new Random( b.getX()*b.getY()*b.getZ()+(System.currentTimeMillis() >> 12)).nextInt(100) > ConfigUtil.DurabilityOverride.get(b.getType())) {
                 continue;
             }
             removeList.add(b);
@@ -72,7 +72,7 @@ public class ExplosionListener implements Listener {
         if (e.getEntity() == null)
             return;
         Entity tnt = e.getEntity();
-        if (e.getEntityType() == EntityType.PRIMED_TNT && Config.TracerRateTicks != 0) {
+        if (e.getEntityType() == EntityType.PRIMED_TNT && ConfigUtil.TracerRateTicks != 0) {
             long maxDistSquared = Bukkit.getServer().getViewDistance() * 16L;
             maxDistSquared = maxDistSquared - 16;
             maxDistSquared = maxDistSquared * maxDistSquared;
@@ -84,7 +84,7 @@ public class ExplosionListener implements Listener {
                 }
 
                 // is the TNT within the view distance (rendered world) of the player, yet further than TracerMinDistance blocks?
-                if (p.getLocation().distanceSquared(tnt.getLocation()) < maxDistSquared && p.getLocation().distanceSquared(tnt.getLocation()) >= Config.TracerMinDistanceSqrd) {  // we use squared because its faster
+                if (p.getLocation().distanceSquared(tnt.getLocation()) < maxDistSquared && p.getLocation().distanceSquared(tnt.getLocation()) >= ConfigUtil.TracerMinDistanceSqrd) {  // we use squared because its faster
                     final Location loc = tnt.getLocation();
                     final Player fp = p;
                     final World fw = e.getEntity().getWorld();
@@ -110,7 +110,7 @@ public class ExplosionListener implements Listener {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                fp.spawnParticle(Config.ExplosionParticle, loc, 9);
+                                fp.spawnParticle(ConfigUtil.ExplosionParticle, loc, 9);
                             }
                         }.runTaskLater(MovecraftCombat.getInstance(), 20);
                     }
@@ -138,7 +138,7 @@ public class ExplosionListener implements Listener {
     }
 
     private void processFireballTracking(@NotNull EntityExplodeEvent e) {
-        if(!Config.EnableFireballTracking)
+        if(!ConfigUtil.EnableFireballTracking)
             return;
         if(e.getEntity() == null)
             return;

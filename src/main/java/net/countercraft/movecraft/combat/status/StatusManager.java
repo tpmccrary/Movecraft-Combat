@@ -6,7 +6,7 @@ import net.countercraft.movecraft.combat.event.CombatReleaseEvent;
 import net.countercraft.movecraft.combat.event.CombatStartEvent;
 import net.countercraft.movecraft.combat.event.CombatStopEvent;
 import net.countercraft.movecraft.combat.localisation.I18nSupport;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.config.Settings;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.craft.PlayerCraft;
@@ -44,7 +44,7 @@ public class StatusManager extends BukkitRunnable {
         long currentTime = System.currentTimeMillis();
         HashSet<Player> removeSet = new HashSet<>();
         for(var entry : records.entrySet()) {
-            if((currentTime - entry.getValue()) > Config.DamageTimeout * 1000L)
+            if((currentTime - entry.getValue()) > ConfigUtil.DamageTimeout * 1000L)
                 removeSet.add(entry.getKey());
         }
         for(Player player : removeSet) {
@@ -55,26 +55,26 @@ public class StatusManager extends BukkitRunnable {
 
 
     public boolean isInCombat(Player player) {
-        if(!Config.EnableCombatReleaseTracking)
+        if(!ConfigUtil.EnableCombatReleaseTracking)
             return false;
         if(!records.containsKey(player))
             return false;
 
-        return System.currentTimeMillis() - records.get(player) < Config.DamageTimeout * 1000L;
+        return System.currentTimeMillis() - records.get(player) < ConfigUtil.DamageTimeout * 1000L;
     }
 
     public void registerEvent(@Nullable Player player) {
-        if(!Config.EnableCombatReleaseTracking)
+        if(!ConfigUtil.EnableCombatReleaseTracking)
             return;
         if(player == null)
             return;
-        if(!records.containsKey(player) || System.currentTimeMillis() - records.get(player) > Config.DamageTimeout * 1000L)
+        if(!records.containsKey(player) || System.currentTimeMillis() - records.get(player) > ConfigUtil.DamageTimeout * 1000L)
             startCombat(player);
         records.put(player, System.currentTimeMillis());
     }
 
     public void craftReleased(@NotNull CraftReleaseEvent e) {
-        if(!Config.EnableCombatReleaseTracking)
+        if(!ConfigUtil.EnableCombatReleaseTracking)
             return;
 
         Craft craft = e.getCraft();
@@ -104,7 +104,7 @@ public class StatusManager extends BukkitRunnable {
         if(event.isCancelled())
             return;
 
-        if(Config.CombatReleaseScuttle) {
+        if(ConfigUtil.CombatReleaseScuttle) {
             player.sendMessage(ChatColor.RED + I18nSupport.getInternationalisedString("Combat Release Message"));
             e.setCancelled(true);
             craft.setNotificationPlayer(null);
@@ -112,16 +112,16 @@ public class StatusManager extends BukkitRunnable {
             craft.sink();
         }
 
-        if(!Config.EnableCombatReleaseKick)
+        if(!ConfigUtil.EnableCombatReleaseKick)
             return;
         if(!canManOverboard(player, craft))
             return;
 
-        if (Config.CombatReleaseBanLength > 0) {
+        if (ConfigUtil.CombatReleaseBanLength > 0) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    Date expiry = new Date(System.currentTimeMillis() + Config.CombatReleaseBanLength * 1000);
+                    Date expiry = new Date(System.currentTimeMillis() + ConfigUtil.CombatReleaseBanLength * 1000);
                     Bukkit.getServer().getBanList(BanList.Type.NAME).addBan(player.getName(), I18nSupport.getInternationalisedString("Combat Release"), expiry, "Movecraft-Combat AutoBan");
                 }
             }.runTaskLater(MovecraftCombat.getInstance(), 5);
@@ -139,7 +139,7 @@ public class StatusManager extends BukkitRunnable {
     }
 
     public void craftSunk(@NotNull PlayerCraft craft) {
-        if(!Config.EnableCombatReleaseTracking)
+        if(!ConfigUtil.EnableCombatReleaseTracking)
             return;
        if(craft.getType().getBoolProperty(CraftType.CRUISE_ON_PILOT))
             return;

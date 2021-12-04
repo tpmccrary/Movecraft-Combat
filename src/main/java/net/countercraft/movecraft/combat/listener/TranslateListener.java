@@ -1,7 +1,7 @@
 package net.countercraft.movecraft.combat.listener;
 
 import net.countercraft.movecraft.combat.MovecraftCombat;
-import net.countercraft.movecraft.combat.config.Config;
+import net.countercraft.movecraft.combat.config.ConfigUtil;
 import net.countercraft.movecraft.events.CraftTranslateEvent;
 import net.countercraft.movecraft.util.hitboxes.HitBox;
 import org.bukkit.Bukkit;
@@ -16,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class TranslateListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void translateEvent(CraftTranslateEvent e) {
-        if(!Config.MovementTracers)
+        if(!ConfigUtil.MovementTracers)
             return;
 
         final World w = e.getCraft().getWorld();
@@ -38,7 +38,7 @@ public class TranslateListener implements Listener {
                 @Override
                 public void run() {
                     for(var loc : difference)
-                        p.spawnParticle(Config.TracerParticle, loc.toBukkit(w).add(0.5, 0.5, 0.5), 0, 0.0, 0.0, 0.0);
+                        p.spawnParticle(ConfigUtil.TracerParticle, loc.toBukkit(w).add(0.5, 0.5, 0.5), 0, 0.0, 0.0, 0.0);
                 }
             }.runTaskLater(MovecraftCombat.getInstance(), 1);
         }
